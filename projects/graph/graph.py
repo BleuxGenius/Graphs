@@ -13,33 +13,90 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        # creates a new vertex id adds to the dictionary
+        # set() -> new empty set object set(iterable) -> new set object
+        self.vertices[vertex_id] = set
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+           self.vertices[v1].add(v2)
+
+            # add to the edge 
+        else:
+            print("Error adding edge, Vertex not found")   
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        # if the vertex id is in the vertices dict 
+        if vertex_id in self.vertices:
+            # return the vertex Id
+           return self.vertices[vertex_id]
+        #     if not return none 
+        else:
+            return None   
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+
+        # create a queue and enqueue starting a vertex
+        planned_visited = Queue()
+        planned_visited.enqueue([starting_vertex])
+
+        # create a set of traversed vertices
+        visited_vertices = set()
+
+        #  while the queue is not empty 
+        while planned_visited.size() > 0:
+            # dequeue/pop the first vertex on the queue
+            current_vertex = planned_visited.dequeue()
+            #  if current vertex is not visited
+            if current_vertex not in visited_vertices:
+                # print the vertex 
+                print(current_vertex)
+                #  mark as visited , add to visited vertices 
+                visited_vertices.add(current_vertex)
+                # add all unvisited neighbors to the queue 
+                for neighbor in self.get_neighbors(current_vertex):
+                    if neighbor not in visited_vertices:
+                        planned_visited.enqueue(neighbor)
+
+
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # create planned_visited stack and add starting vertex
+        print("DFT")
+        planned_visited = Stack()
+        planned_visited.push(starting_vertex)
+
+        #  create set for visiting verticies 
+        visited_vertices = set()
+        #  while planned_visited is not empty
+        while planned_visited.size() > 0:
+            # pop the first vertex on the stack 
+            current_vertex = planned_visited.pop()
+            #  if vertex has not been visited
+            if current_vertex not in visited_vertices:
+                # print the vertex
+                print(current_vertex)
+            # mark as visited, (add to visitied_vertices)
+                visited_vertices.add(current_vertex)
+            # add all unvisited neighbors to the stack 
+            for neighbor in self.get_neighbors(current_vertex):
+                if neighbor not in visited_vertices:
+                    planned_visited.push(neighbor)
+
 
     def dft_recursive(self, starting_vertex):
         """
