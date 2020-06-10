@@ -24,7 +24,8 @@ class Graph:
         """
         # creates a new vertex id to add to the dictionary
         # set() -> new empty set object set(iterable) -> new set object
-        self.vertices[vertex_id] = set
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
